@@ -6,7 +6,7 @@
 #    By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/22 16:38:32 by tsiguenz          #+#    #+#              #
-#    Updated: 2022/02/22 18:33:22 by tsiguenz         ###   ########.fr        #
+#    Updated: 2022/02/22 19:25:45 by tsiguenz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ OBJ_PATH = obj/
 
 # Names
 
-SRC_NAME = main.c	
+SRC_NAME = main.c parsing.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
@@ -31,7 +31,7 @@ SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))
 # Flags
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 INC = -Iinclude -lpthread
 
 # Rules
