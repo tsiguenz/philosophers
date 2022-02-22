@@ -1,0 +1,9 @@
+*.[oa]
+*.sw[po]
+*.gch
+*.nfs*
+*.dSYM
+*obj/
+.DS_Store
+a.out
+philo
