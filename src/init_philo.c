@@ -1,33 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init_philo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/22 18:28:05 by tsiguenz          #+#    #+#             */
-/*   Updated: 2022/02/23 19:48:23 by tsiguenz         ###   ########.fr       */
+/*   Created: 2022/02/23 15:09:47 by tsiguenz          #+#    #+#             */
+/*   Updated: 2022/02/23 19:59:18 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	main(int argc, char **argv)
+int	init_philo(t_philo *philo, pthread_mutex_t *fork, t_data *data)
 {
-	t_data			data;
-	t_philo			*philo;
-	pthread_mutex_t	*fork;
+	int	i;
 
-	if (parsing(argc, argv, &data) == 1)
-		return (1);
-	philo = malloc(data.nb_philo * sizeof(t_philo));
-	if (philo == NULL)
-		return (1);
-	fork = malloc(data.nb_philo * sizeof(pthread_mutex_t));
-	if (fork == NULL)
-		return (1);
-	init_philo(philo, fork, &data);
-	free(philo);
-	free(fork);
+	i = 0;
+	while (i < data->nb_philo)
+	{
+		philo[i].is_dead = 0;
+		philo[i].index = i + 1;
+		philo[i].fork = fork;
+		philo[i].data = data;
+		pthread_mutex_init(&fork[i], NULL);
+		pthread_create(&philo[i].thread, NULL, routine, &philo[i]);
+		i++;
+	}
+	i = 0;
+	while (i < data->nb_philo)
+	{
+		pthread_join(philo[i].thread, NULL);
+		pthread_mutex_destroy(&fork[i]);
+		i++;
+	}
 	return (0);
 }
