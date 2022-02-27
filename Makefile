@@ -6,7 +6,7 @@
 #    By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/22 16:38:32 by tsiguenz          #+#    #+#              #
-#    Updated: 2022/02/23 19:44:27 by tsiguenz         ###   ########.fr        #
+#    Updated: 2022/02/27 21:19:29 by tsiguenz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ OBJ_PATH = obj/
 
 # Names
 
-SRC_NAME = main.c parsing.c init_philo.c routine.c
+SRC_NAME = main.c parsing.c init_philo.c routine.c get_time.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

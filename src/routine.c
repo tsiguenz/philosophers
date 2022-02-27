@@ -6,11 +6,11 @@
 /*   By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 16:50:14 by tsiguenz          #+#    #+#             */
-/*   Updated: 2022/02/23 20:10:30 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2022/02/27 02:07:25 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.c"
+#include "philosophers.h"
 
 void	print_action(int time, int philo_nb, char *message)
 {
@@ -19,24 +19,24 @@ void	print_action(int time, int philo_nb, char *message)
 
 static void	eat(t_philo *philo)
 {
-	timeval	time;
+	struct timeval	time;
 
-	time = NULL;
-	print_action(0, phili->index, "is eating");
-	gettimeofday(time, NULL);
+	print_action(philo->data->start_time, philo->index, "is eating");
+	gettimeofday(&time, NULL);
 	philo->last_eat = time.tv_usec;
-	usleep(philo->time_eat * 1000);
+	usleep(philo->data->time_to_eat * 1000);
+	printf("%lu\n", time.tv_usec);
 }
 
 static void	think(t_philo *philo)
 {
-	print_action(0, phili->index, "is thinking");
+	print_action(philo->data->start_time, philo->index, "is thinking");
 }
 
 static void	sleeep(t_philo *philo)
 {
-	print_action(0, phili->index, "is sleeping");
-	usleep(philo->time_to_sleep * 1000);
+	print_action(philo->data->start_time, philo->index, "is sleeping");
+	usleep(philo->data->time_to_sleep * 1000);
 }
 
 void	*routine(void *arg)

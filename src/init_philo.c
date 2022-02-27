@@ -6,7 +6,7 @@
 /*   By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 15:09:47 by tsiguenz          #+#    #+#             */
-/*   Updated: 2022/02/23 19:59:18 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2022/02/27 22:05:44 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 int	init_philo(t_philo *philo, pthread_mutex_t *fork, t_data *data)
 {
 	int	i;
+	struct timeval	tv;
 
 	i = 0;
+	gettimeofday(&tv, NULL);
+	data->start_time = tv.tv_usec;
 	while (i < data->nb_philo)
 	{
 		philo[i].is_dead = 0;

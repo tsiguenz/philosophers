@@ -6,7 +6,7 @@
 /*   By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 18:28:05 by tsiguenz          #+#    #+#             */
-/*   Updated: 2022/02/23 19:48:23 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2022/02/27 22:05:26 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ int	main(int argc, char **argv)
 	if (fork == NULL)
 		return (1);
 	init_philo(philo, fork, &data);
+	printf("time 1 = %ld\n", get_time(data.start_time));
+	sleep(1);
+	//printf("time 2 = %lu\n", get_time(&data));
 	free(philo);
 	free(fork);
 	return (0);
