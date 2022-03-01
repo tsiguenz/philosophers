@@ -6,7 +6,7 @@
 /*   By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 18:55:21 by tsiguenz          #+#    #+#             */
-/*   Updated: 2022/03/01 11:44:45 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2022/03/01 16:35:38 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	is_formated(int argc, char **argv)
 	return (1);
 }
 
-static void	set_data(int argc, char **argv, t_data *data)
+static int	set_data(int argc, char **argv, t_data *data)
 {
 	data->nb_philo = ft_atoi(argv[1]);
 	data->time_to_die = ft_atoi(argv[2]);
@@ -63,6 +63,9 @@ static void	set_data(int argc, char **argv, t_data *data)
 	if (argc == 6)
 		data->iteration = ft_atoi(argv[5]);
 	data->stop = 0;
+	if (pthread_mutex_init(&data->mutex, NULL) != 0)
+		return (1);
+	return (0);
 }
 
 int	parsing(int argc, char **argv, t_data *data)
@@ -71,7 +74,8 @@ int	parsing(int argc, char **argv, t_data *data)
 		return (1);
 	if (is_formated(argc, argv) == 0)
 		return (1);
-	set_data(argc, argv, data);
+	if (set_data(argc, argv, data) == 1)
+		return (1);
 	if (data->nb_philo == -1)
 		return (1);
 	if (data->time_to_die == -1)
