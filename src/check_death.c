@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   check_death.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/22 18:28:05 by tsiguenz          #+#    #+#             */
-/*   Updated: 2022/03/01 10:57:18 by tsiguenz         ###   ########.fr       */
+/*   Created: 2022/03/01 10:11:38 by tsiguenz          #+#    #+#             */
+/*   Updated: 2022/03/01 11:41:43 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	main(int argc, char **argv)
+void	check_death(t_philo *philo, t_data *data)
 {
-	t_data			data;
-	t_philo			*philo;
-	pthread_mutex_t	*fork;
+	int	i;
 
-	if (parsing(argc, argv, &data) == 1)
-		return (1);
-	philo = malloc(data.nb_philo * sizeof(t_philo));
-	if (philo == NULL)
-		return (1);
-	fork = malloc(data.nb_philo * sizeof(pthread_mutex_t));
-	if (fork == NULL)
-		return (1);
-	init_philo(philo, fork, &data);
-	pthread_mutex_destroy(&data.mutex_print);
-	free(philo);
-	free(fork);
-	return (0);
+	while (42)
+	{
+		i = 0;
+		while (i < data->nb_philo)
+		{
+			if (get_time(data->start_time) - philo[i].last_eat \
+				> data->time_to_die)
+			{
+				philo[i].is_dead = 1;
+				data->stop = 1;
+				p_action(get_time(data->start_time), i + 1, M_DEAD, \
+					data->mutex_print);
+				return ;
+			}
+			i++;
+		}
+		usleep(50);
+	}
 }
