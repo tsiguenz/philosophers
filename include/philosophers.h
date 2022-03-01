@@ -6,7 +6,7 @@
 /*   By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 18:30:15 by tsiguenz          #+#    #+#             */
-/*   Updated: 2022/03/01 11:42:10 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2022/03/01 11:44:14 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ typedef struct s_data
 	int				time_to_sleep;
 	int				iteration;
 	int				stop;
-	pthread_mutex_t	mutex_print;
 }				t_data;
 
 typedef struct s_philo
@@ -59,7 +58,7 @@ typedef struct s_philo
 int		parsing(int argc, char **argv, t_data *data);
 int		init_philo(t_philo *philo, pthread_mutex_t *fork, t_data *data);
 void	*routine(void *arg);
-void	p_action(long time, int philo_nb, char *message, pthread_mutex_t m);
+void	p_action(long time, int philo_nb, char *message);
 long	get_time(t_timeval start);
 void	check_death(t_philo *philo, t_data *data);
 #endif

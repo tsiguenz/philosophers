@@ -6,7 +6,7 @@
 /*   By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 10:11:38 by tsiguenz          #+#    #+#             */
-/*   Updated: 2022/03/01 11:41:43 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2022/03/01 11:48:01 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ void	check_death(t_philo *philo, t_data *data)
 			{
 				philo[i].is_dead = 1;
 				data->stop = 1;
-				p_action(get_time(data->start_time), i + 1, M_DEAD, \
-					data->mutex_print);
+				p_action(get_time(data->start_time), i + 1, M_DEAD);
 				return ;
 			}
 			i++;
