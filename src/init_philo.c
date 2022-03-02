@@ -6,7 +6,7 @@
 /*   By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 15:09:47 by tsiguenz          #+#    #+#             */
-/*   Updated: 2022/03/01 17:25:27 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2022/03/02 16:09:11 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,9 @@ int	init_philo(t_philo *philo, pthread_mutex_t *fork, t_data *data)
 			return (1);
 		if (pthread_create(&philo[i].thread, NULL, routine, &philo[i]) != 0)
 			return (1);
-		usleep(50);
 		i++;
 	}
-	if (check_death(philo, data) != 0)
-		return (1);
-	i = 0;
-	while (i < data->nb_philo)
-	{
-		if (pthread_join(philo[i].thread, NULL) != 0)
-			return (1);
-		if (pthread_mutex_destroy(&fork[i]) != 0)
-			return (1);
-		i++;
-	}
+	//if (check_death(philo, data) != 0)
+	//	return (1);
 	return (0);
 }
