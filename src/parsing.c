@@ -6,7 +6,7 @@
 /*   By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 18:55:21 by tsiguenz          #+#    #+#             */
-/*   Updated: 2022/03/02 16:14:43 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2022/03/02 16:38:27 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ static int	set_data(int argc, char **argv, t_data *data)
 	if (argc == 6)
 		data->iteration = ft_atoi(argv[5]);
 	data->stop = 0;
-	if (pthread_mutex_init(&data->mutex, NULL) != 0)
-		return (1);
 	return (0);
 }
 

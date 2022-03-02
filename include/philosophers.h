@@ -6,7 +6,7 @@
 /*   By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 18:30:15 by tsiguenz          #+#    #+#             */
-/*   Updated: 2022/03/02 16:14:53 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2022/03/02 18:23:57 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ typedef struct s_data
 	int				time_to_sleep;
 	int				iteration;
 	int				stop;
-	pthread_mutex_t	mutex;
 }				t_data;
 
 typedef struct s_philo
@@ -53,15 +52,16 @@ typedef struct s_philo
 	int				is_dead;
 	pthread_t		thread;
 	t_data			*data;
+	pthread_mutex_t	*mutex;
 	pthread_mutex_t	*fork;
 }				t_philo;
 
 int		parsing(int argc, char **argv, t_data *data);
 int		init_philo(t_philo *philo, pthread_mutex_t *fork, t_data *data);
 void	*routine(void *arg);
-int		p_action(t_philo *philo, char *message);
+void	p_action(t_philo *philo, char *message);
 long	get_time(t_timeval start);
 int		check_death(t_philo *philo, t_data *data);
-int		ft_free(t_philo *philo, pthread_mutex_t *fork);
+int		ft_free(void *philo, void *fork, void *mutex);
 int		ft_exit(t_data *data, t_philo *philo, pthread_mutex_t *fork);
 #endif
