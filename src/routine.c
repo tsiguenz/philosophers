@@ -6,7 +6,7 @@
 /*   By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 16:50:14 by tsiguenz          #+#    #+#             */
-/*   Updated: 2022/03/02 18:44:13 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2022/03/03 19:11:58 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,16 @@ static void	left_fork(t_philo *philo)
 	}
 }
 
-static void	eat(t_philo *philo)
-{
-	take_fork(philo);
-	p_action(philo, M_EAT);
-	pthread_mutex_lock(philo->mutex);
-	philo->last_eat = get_time(philo->data->start_time);
-	usleep(philo->data->time_to_eat * 1000);
-	pthread_mutex_unlock(philo->mutex);
-	left_fork(philo);
-}
-
 static void	action(int action, t_philo *philo)
 {
 	if (action == EAT)
-		eat(philo);
+	{
+		take_fork(philo);
+		p_action(philo, M_EAT);
+		philo->last_eat = get_time(philo->data->start_time);
+		usleep(philo->data->time_to_eat * 1000);
+		left_fork(philo);
+	}
 	if (action == SLEEP)
 	{
 		p_action(philo, M_SLEEP);
@@ -79,11 +74,19 @@ static void	action(int action, t_philo *philo)
 void	*routine(void *arg)
 {
 	t_philo			*philo;
+	int				nb;
+	int				iteration;
 
 	philo = (t_philo *) arg;
-	while (42 && philo->data->stop == 0)
+	pthread_mutex_lock(philo->mutex);
+	nb = philo->data->nb_philo;
+	iteration = philo->data->iteration;
+	pthread_mutex_unlock(philo->mutex);
+	if (philo->index % 2 == 1)
+		usleep(40000);
+	while (42 && iteration != 0)
 	{
-		if (philo->data->nb_philo == 1)
+		if (nb == 1)
 		{
 			p_action(philo, M_TAKE_FORK);
 			return (NULL);
@@ -94,6 +97,8 @@ void	*routine(void *arg)
 			action(SLEEP, philo);
 			action(THINK, philo);
 		}
+		if (iteration != -2)
+			iteration--;
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 15:09:47 by tsiguenz          #+#    #+#             */
-/*   Updated: 2022/03/02 18:28:12 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2022/03/03 18:09:33 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ int	init_philo(t_philo *philo, pthread_mutex_t *fork, t_data *data)
 	if (mutex == NULL)
 		return (1);
 	pthread_mutex_init(mutex, NULL);
-	if (gettimeofday(&data->start_time, NULL) == -1)
-		return (1);
+	pthread_mutex_lock(mutex);
 	while (i < data->nb_philo)
 	{
 		philo[i].mutex = mutex;
@@ -36,6 +35,8 @@ int	init_philo(t_philo *philo, pthread_mutex_t *fork, t_data *data)
 		pthread_create(&philo[i].thread, NULL, routine, &philo[i]);
 		i++;
 	}
-	check_death(philo, data);
+	gettimeofday(&data->start_time, NULL);
+	pthread_mutex_unlock(mutex);
+	//check_death(philo, data);
 	return (0);
 }

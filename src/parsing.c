@@ -6,7 +6,7 @@
 /*   By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 18:55:21 by tsiguenz          #+#    #+#             */
-/*   Updated: 2022/03/02 16:38:27 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2022/03/03 18:39:41 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	set_data(int argc, char **argv, t_data *data)
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
-	data->iteration = 0;
+	data->iteration = -2;
 	if (argc == 6)
 		data->iteration = ft_atoi(argv[5]);
 	data->stop = 0;

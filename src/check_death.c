@@ -6,7 +6,7 @@
 /*   By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 10:11:38 by tsiguenz          #+#    #+#             */
-/*   Updated: 2022/03/02 18:45:57 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2022/03/03 17:14:03 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	check_death(t_philo *philo, t_data *data)
 			i++;
 		}
 		pthread_mutex_unlock(philo->mutex);
-		usleep(50);
+		usleep(1000);
 	}
 	return (0);
 }
