@@ -6,19 +6,11 @@
 /*   By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 16:50:14 by tsiguenz          #+#    #+#             */
-/*   Updated: 2022/03/04 12:58:08 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2022/03/04 17:25:17 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-void	p_action(t_philo *philo, char *message)
-{
-	pthread_mutex_lock(&philo->data->mutex);
-	if (philo->data->stop == 0 && philo->data->stop == 0)
-		printf("%ld %d %s\n", get_time(philo->data->start_time), philo->index, message);
-	pthread_mutex_unlock(&philo->data->mutex);
-}
 
 static void	take_fork(t_philo *philo)
 {
@@ -66,7 +58,7 @@ static void	action(int action, t_philo *philo)
 		pthread_mutex_unlock(&philo->data->mutex);
 		usleep(time_to_eat * 1000);
 		left_fork(philo);
-		usleep(1000);
+		usleep(100);
 	}
 	if (action == SLEEP && is_dead(philo) == 0)
 	{
@@ -76,8 +68,29 @@ static void	action(int action, t_philo *philo)
 	if (action == THINK && is_dead(philo) == 0)
 	{
 		p_action(philo, M_THINK);
-		usleep(1000);
+		usleep(100);
 	}
+}
+
+static int	loop_routine(t_philo *philo, int nb, int *iteration)
+{
+	while (42 && *iteration != 0 && is_dead(philo) == 0)
+	{
+		if (nb == 1)
+		{
+			p_action(philo, M_TAKE_FORK);
+			return (1);
+		}
+		else
+		{
+			action(EAT, philo);
+			action(SLEEP, philo);
+			action(THINK, philo);
+		}
+		if (*iteration != -2)
+			(*iteration)--;
+	}
+	return (0);
 }
 
 void	*routine(void *arg)
@@ -93,21 +106,13 @@ void	*routine(void *arg)
 	pthread_mutex_unlock(&philo->data->mutex);
 	if (philo->index % 2 == 1)
 		usleep(40000);
-	while (42 && iteration != 0 && is_dead(philo) == 0)
+	if (loop_routine(philo, nb, &iteration) == 1)
+		return (NULL);
+	if (iteration == 0)
 	{
-		if (nb == 1)
-		{
-			p_action(philo, M_TAKE_FORK);
-			return (NULL);
-		}
-		else
-		{
-			action(EAT, philo);
-			action(SLEEP, philo);
-			action(THINK, philo);
-		}
-		if (iteration != -2)
-			iteration--;
+		pthread_mutex_lock(&philo->data->mutex);
+		philo->data->iteration = 0;
+		pthread_mutex_unlock(&philo->data->mutex);
 	}
 	return (NULL);
 }

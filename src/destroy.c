@@ -6,7 +6,7 @@
 /*   By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 15:01:06 by tsiguenz          #+#    #+#             */
-/*   Updated: 2022/03/04 12:45:01 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2022/03/04 13:26:12 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	ft_free(void *philo, void *fork)
 
 int	ft_exit(t_data *data, t_philo *philo, pthread_mutex_t *fork)
 {
-
 	destroy_philo(data, philo);
 	destroy_fork(data, fork);
 	pthread_mutex_destroy(&data->mutex);

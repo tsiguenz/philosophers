@@ -6,7 +6,7 @@
 /*   By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 15:09:47 by tsiguenz          #+#    #+#             */
-/*   Updated: 2022/03/04 12:45:35 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2022/03/04 16:31:20 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	init_philo(t_philo *philo, pthread_mutex_t *fork, t_data *data)
 		philo[i].data = data;
 		philo[i].last_eat = 0;
 		pthread_mutex_init(&fork[i], NULL);
-		pthread_create(&philo[i].thread, NULL, routine, &philo[i]);
+		pthread_create(&philo[i].thread, NULL, &routine, &philo[i]);
 		i++;
 	}
 	gettimeofday(&data->start_time, NULL);
