@@ -6,7 +6,7 @@
 /*   By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 18:55:21 by tsiguenz          #+#    #+#             */
-/*   Updated: 2022/03/03 18:39:41 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2022/03/04 22:26:45 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static int	ft_atoi(char *str)
 	ret = 0;
 	while (*str == '0')
 		str++;
+	if (*str == '\0')
+		return (-1);
 	while (str[i])
 	{
 		ret = ret * 10 + str[i] - '0';
@@ -40,7 +42,7 @@ static int	is_formated(int argc, char **argv)
 	while (i < argc)
 	{
 		y = 0;
-		if (argv[i][y] == '\0' || (argv[i][y] == '0' && argv[i][y + 1] == '\0'))
+		if (argv[i][y] == '\0')
 			return (0);
 		while (argv[i][y])
 		{
@@ -74,15 +76,9 @@ int	parsing(int argc, char **argv, t_data *data)
 		return (1);
 	if (set_data(argc, argv, data) == 1)
 		return (1);
-	if (data->nb_philo == -1)
-		return (1);
-	if (data->time_to_die == -1)
-		return (1);
-	if (data->time_to_eat == -1)
-		return (1);
-	if (data->time_to_sleep == -1)
-		return (1);
-	if (data->iteration == -1)
+	if (data->nb_philo == -1 || data->time_to_die == -1 || \
+		data->time_to_eat == -1 || data->time_to_sleep == -1 || \
+		data->iteration == -1)
 		return (1);
 	return (0);
 }
