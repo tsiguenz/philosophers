@@ -6,7 +6,7 @@
 /*   By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 16:50:14 by tsiguenz          #+#    #+#             */
-/*   Updated: 2022/03/03 19:11:58 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2022/03/04 12:58:08 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	p_action(t_philo *philo, char *message)
 {
-	pthread_mutex_lock(philo->mutex);
-	if (philo->data->stop == 0)
+	pthread_mutex_lock(&philo->data->mutex);
+	if (philo->data->stop == 0 && philo->data->stop == 0)
 		printf("%ld %d %s\n", get_time(philo->data->start_time), philo->index, message);
-	pthread_mutex_unlock(philo->mutex);
+	pthread_mutex_unlock(&philo->data->mutex);
 }
 
 static void	take_fork(t_philo *philo)
@@ -54,21 +54,30 @@ static void	left_fork(t_philo *philo)
 
 static void	action(int action, t_philo *philo)
 {
-	if (action == EAT)
+	int	time_to_eat;
+
+	if (action == EAT && is_dead(philo) == 0)
 	{
 		take_fork(philo);
 		p_action(philo, M_EAT);
+		pthread_mutex_lock(&philo->data->mutex);
 		philo->last_eat = get_time(philo->data->start_time);
-		usleep(philo->data->time_to_eat * 1000);
+		time_to_eat = philo->data->time_to_eat;
+		pthread_mutex_unlock(&philo->data->mutex);
+		usleep(time_to_eat * 1000);
 		left_fork(philo);
+		usleep(1000);
 	}
-	if (action == SLEEP)
+	if (action == SLEEP && is_dead(philo) == 0)
 	{
 		p_action(philo, M_SLEEP);
 		usleep(philo->data->time_to_sleep * 1000);
 	}
-	if (action == THINK)
+	if (action == THINK && is_dead(philo) == 0)
+	{
 		p_action(philo, M_THINK);
+		usleep(1000);
+	}
 }
 
 void	*routine(void *arg)
@@ -78,13 +87,13 @@ void	*routine(void *arg)
 	int				iteration;
 
 	philo = (t_philo *) arg;
-	pthread_mutex_lock(philo->mutex);
+	pthread_mutex_lock(&philo->data->mutex);
 	nb = philo->data->nb_philo;
 	iteration = philo->data->iteration;
-	pthread_mutex_unlock(philo->mutex);
+	pthread_mutex_unlock(&philo->data->mutex);
 	if (philo->index % 2 == 1)
 		usleep(40000);
-	while (42 && iteration != 0)
+	while (42 && iteration != 0 && is_dead(philo) == 0)
 	{
 		if (nb == 1)
 		{
