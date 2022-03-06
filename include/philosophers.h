@@ -6,7 +6,7 @@
 /*   By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 18:30:15 by tsiguenz          #+#    #+#             */
-/*   Updated: 2022/03/04 21:52:55 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2022/03/06 21:54:56 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_philo
 }				t_philo;
 
 int		parsing(int argc, char **argv, t_data *data);
-int		init_philo(t_philo *philo, pthread_mutex_t *fork, t_data *data);
+void	init_philo(t_philo *philo, pthread_mutex_t *fork, t_data *data);
 void	*routine(void *arg);
 void	p_action(t_philo *philo, char *message);
 long	get_time(t_timeval start);

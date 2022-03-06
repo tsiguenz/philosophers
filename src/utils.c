@@ -6,7 +6,7 @@
 /*   By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 16:35:58 by tsiguenz          #+#    #+#             */
-/*   Updated: 2022/03/04 16:36:51 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2022/03/06 21:59:33 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ long	get_time(struct timeval start)
 {
 	struct timeval	now;
 
-	if (gettimeofday(&now, NULL) == -1)
-		return (-1);
+	gettimeofday(&now, NULL);
 	return ((now.tv_sec * 1000 + now.tv_usec / 1000) - \
 			(start.tv_sec * 1000 + start.tv_usec / 1000));
 }

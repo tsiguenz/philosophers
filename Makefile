@@ -6,7 +6,7 @@
 #    By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/22 16:38:32 by tsiguenz          #+#    #+#              #
-#    Updated: 2022/03/04 22:04:44 by tsiguenz         ###   ########.fr        #
+#    Updated: 2022/03/06 21:57:24 by tsiguenz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))
 # Flags
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 INC = -Iinclude -lpthread
 
 # Rules

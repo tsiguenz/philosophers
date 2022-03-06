@@ -6,13 +6,13 @@
 /*   By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 15:09:47 by tsiguenz          #+#    #+#             */
-/*   Updated: 2022/03/04 16:31:20 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2022/03/06 21:54:41 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	init_philo(t_philo *philo, pthread_mutex_t *fork, t_data *data)
+void	init_philo(t_philo *philo, pthread_mutex_t *fork, t_data *data)
 {
 	int	i;
 
@@ -33,5 +33,4 @@ int	init_philo(t_philo *philo, pthread_mutex_t *fork, t_data *data)
 	gettimeofday(&data->start_time, NULL);
 	pthread_mutex_unlock(&data->mutex);
 	check_death(philo, data);
-	return (0);
 }

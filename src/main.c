@@ -6,7 +6,7 @@
 /*   By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 18:28:05 by tsiguenz          #+#    #+#             */
-/*   Updated: 2022/03/04 22:27:45 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2022/03/06 21:54:11 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv)
 		return (1);
 	fork = malloc(data.nb_philo * sizeof(pthread_mutex_t));
 	if (fork == NULL)
-		return (ft_exit(NULL, philo, NULL));
+		return (ft_exit(NULL, philo, NULL) || 1);
 	init_philo(philo, fork, &data);
 	return (ft_exit(&data, philo, fork));
 }

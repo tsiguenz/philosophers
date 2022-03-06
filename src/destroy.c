@@ -6,7 +6,7 @@
 /*   By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 15:01:06 by tsiguenz          #+#    #+#             */
-/*   Updated: 2022/03/04 22:21:50 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2022/03/06 21:52:07 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	destroy_philo(t_data *data, t_philo *philo)
 	int	i;
 
 	i = 0;
-	if (philo == NULL)
+	if (philo == NULL || data == NULL)
 		return ;
 	while (i < data->nb_philo)
 	{
