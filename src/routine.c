@@ -6,7 +6,7 @@
 /*   By: tsiguenz <tsiguenz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 16:50:14 by tsiguenz          #+#    #+#             */
-/*   Updated: 2022/03/04 17:25:17 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2022/03/07 16:04:50 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static void	action(int action, t_philo *philo)
 		pthread_mutex_unlock(&philo->data->mutex);
 		usleep(time_to_eat * 1000);
 		left_fork(philo);
-		usleep(100);
 	}
 	if (action == SLEEP && is_dead(philo) == 0)
 	{
